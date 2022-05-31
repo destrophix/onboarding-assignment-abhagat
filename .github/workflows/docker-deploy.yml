@@ -47,6 +47,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: display-semver
     steps:
+      - name: check directory
+        run: |
+          echo "$PWD"
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
