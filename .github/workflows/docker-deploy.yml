@@ -62,7 +62,6 @@ jobs:
         env:
           IMAGE_NAME: onboarding-assignment-abhagat
           VERSION: ${{ needs.display-semver.outputs.semVer }}
-          DOCKER_BUILDKIT: 1
         run: |
           docker build --file Dockerfile -t ${{ env.IMAGE_NAME }}:${{ env.VERSION }} .
       
