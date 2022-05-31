@@ -66,7 +66,7 @@ jobs:
           IMAGE_NAME: onboarding-assignment-abhagat
           VERSION: ${{ needs.display-semver.outputs.semVer }}
         run: |
-          docker build --file Dockerfile -t ${{ env.IMAGE_NAME }}:${{ env.VERSION }} .
+          docker build . --file Dockerfile -t ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
       
       - name: Push to AWS ECR
         env:
