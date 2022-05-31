@@ -91,7 +91,7 @@ jobs:
 
       - name: Build, tag, and push image to GHCR
         env:
-          GHCR: ghcr.io
+          GHCR: ghcr.io/amit-r-bhagat
           IMAGE_NAME: onboarding-assignment-abhagat
           VERSION: ${{ needs.display-semver.outputs.semVer }}
         run: |
