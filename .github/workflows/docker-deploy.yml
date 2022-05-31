@@ -45,11 +45,11 @@ jobs:
   build:
     name: deploy docker-image
     runs-on: ubuntu-latest
-#     needs: display-semver
+    needs: display-semver
     steps:
       - name: check directory
         run: |
-          echo "$PWD"
+          ls ${{github.workspace}}
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
