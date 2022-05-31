@@ -35,13 +35,15 @@ jobs:
     needs: calculate-version
     env:
       SEMVER: ${{ needs.calculate-version.outputs.semVer }}
+    outputs:
+      semVer: ${{ needs.calculate-version.outputs.semVer }}
     steps:
       - name: Display version
         run: |
           echo SemVer: $SEMVER
           
-  aws-login:
-    name: Login to AWS ECR
+  build:
+    name: deploy docker-image
     runs-on: ubuntu-latest
     needs: display-semver
     steps:
@@ -53,7 +55,26 @@ jobs:
           aws-region: us-east-1
         
       - name: login to amazon ECR
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        
+      - name: Build Docker Image
+        env:
+          IMAGE_NAME: onboarding-assignment-abhagat
+          VERSION: ${{ needs.display-semver.outputs.semVer }}
+          DOCKER_BUILDKIT: 1
+        run: |
+          docker build -t ${{ env.IMAGE_NAME }}:${{ env.VERSION }} .
+      
+      - name: Push to AWS ECR
+        env:
+          IMAGE_NAME: onboarding-assignment-abhagat
+          VERSION: ${{ needs.display-semver.outputs.semVer }}
+          ECR: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker tag ${{ env.IMAGE_NAME }}:${{ env.VERSION }} '${{ env.ECR }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}'
+          docker push ${{ env.ECR }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+    
       
       
     
