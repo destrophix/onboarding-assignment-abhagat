@@ -68,6 +68,7 @@ jobs:
           VERSION: ${{ needs.display-semver.outputs.semVer }}
         run: |
           docker build . --file Dockerfile -t ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          echo ${{ steps.login-ecr.outputs.registry }}
       
       - name: Push to AWS ECR
         env:
@@ -75,7 +76,6 @@ jobs:
           VERSION: ${{ needs.display-semver.outputs.semVer }}
           ECR: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          echo ${{ env.ECR }}
           docker tag ${{ env.IMAGE_NAME }}:${{ env.VERSION }} '${{ env.ECR }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}'
           docker push ${{ env.ECR }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
     
