@@ -45,7 +45,7 @@ jobs:
   build:
     name: deploy docker-image
     runs-on: ubuntu-latest
-    needs: display-semver
+#     needs: display-semver
     steps:
       - name: check directory
         run: |
