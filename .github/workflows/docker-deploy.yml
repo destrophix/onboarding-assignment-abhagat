@@ -40,7 +40,7 @@ jobs:
     steps:
       - name: Display version
         run: |
-          echo SemVer: $SEMVER
+          echo "$PWD"
           
   build:
     name: deploy docker-image
