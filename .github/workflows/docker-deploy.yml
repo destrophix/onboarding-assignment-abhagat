@@ -39,6 +39,21 @@ jobs:
       - name: Display version
         run: |
           echo SemVer: $SEMVER
+          
+  aws-login:
+    name: Login to AWS ECR
+    runs-on: ubuntu-latest
+    needs: display-semver
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESSS_KEY }}
+          aws-region: us-east-1
+        
+      - name: login to amazon ECR
+        uses: aws-actions/amazon-ecr-login@v1
       
       
     
