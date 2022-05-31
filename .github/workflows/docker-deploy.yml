@@ -64,7 +64,7 @@ jobs:
           VERSION: ${{ needs.display-semver.outputs.semVer }}
           DOCKER_BUILDKIT: 1
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:${{ env.VERSION }} .
+          ls
       
       - name: Push to AWS ECR
         env:
