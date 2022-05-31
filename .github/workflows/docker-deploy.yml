@@ -75,6 +75,7 @@ jobs:
           VERSION: ${{ needs.display-semver.outputs.semVer }}
           ECR: ${{ steps.login-ecr.outputs.registry }}
         run: |
+          echo ${{ env.ECR }}
           docker tag ${{ env.IMAGE_NAME }}:${{ env.VERSION }} '${{ env.ECR }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}'
           docker push ${{ env.ECR }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
     
